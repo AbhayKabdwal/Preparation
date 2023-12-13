@@ -1,5 +1,3 @@
-#Program to implement queue data structure
-# dequeue <- [] [] [] [] [] [] <- enqueue
 class Queue:
     myList=list()
     size=0,
@@ -10,8 +8,16 @@ class Queue:
         self.myList.extend(list(range(0,size)))
         self.size = size
 
+    def isEmpty(self):
+        if self.rear==-1 : return True
+        else: return False
+
+    def isFull(self):
+        if self.rear==self.size-1: return True
+        else: return False
+
     def enqueue(self, num):
-        if self.rear==self.size-1:
+        if self.isFull():
             print("Queue is already full")
             return
         else:
@@ -19,7 +25,7 @@ class Queue:
             self.myList[self.rear]=num
 
     def dequeue(self):
-        if self.rear==-1:
+        if self.isEmpty():
             print("Queue is already empty")
             return
         else:
@@ -29,14 +35,6 @@ class Queue:
                 self.myList[i]=self.myList[i+1]
             self.rear-=1
             return temp
-
-    def isEmpty(self):
-        if self.rear==-1 : return True
-        else: return False
-
-    def isFull(self):
-        if self.rear==self.size-1: return True
-        else: return False
 
     def currSize(self):
         return self.rear+1
@@ -48,8 +46,8 @@ class Queue:
         print("<- Enqueue")
 
 #Below is some driver code
-queue = Queue(2500)
-for i in range(1,2500):
+queue = Queue(25)
+for i in range(1,25):
     queue.enqueue(i)
 print("Queue is full: {}".format(queue.isFull()))
 print("Queue size: {}".format(queue.currSize()))

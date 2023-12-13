@@ -1,41 +1,24 @@
-# It returns location of x in given array arr
 def binarySearch(arr, l, r, x):
-
 	while l <= r:
-
 		mid = l + (r - l) // 2
-
-		# Check if x is present at mid
 		if arr[mid] == x:
 			return mid
 
-		# If x is greater, ignore left half
 		elif arr[mid] < x:
 			l = mid + 1
 
-		# If x is smaller, ignore right half
 		else:
 			r = mid - 1
 	return -1
 
 def binarySearch_recursive(arr, l, r, x):
- 
-    # Check base case
     if l <= r:
  
         mid = l + (r - l) // 2
- 
-        # If element is present at the middle itself
         if arr[mid] == x:
             return mid
- 
-        # If element is smaller than mid, then it
-        # can only be present in left subarray
         elif arr[mid] > x:
             return binarySearch(arr, l, mid-1, x)
- 
-        # Else the element can only be present
-        # in right subarray
         else:
             return binarySearch(arr, mid + 1, r, x)
 

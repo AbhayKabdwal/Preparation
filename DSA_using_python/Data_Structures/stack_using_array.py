@@ -7,29 +7,6 @@ class Stack:
         self.size = size
         self.myList.extend(list(range(0,size))) #Creates a list of given size
 
-    def push(self,num):
-        if self.top==self.size-1:
-            print("Overflow")
-            return
-        else:
-            self.top+=1
-            self.myList[self.top]=num
-
-    def pop(self):
-        if self.top==-1:
-            print("Underflow")
-            return
-        else:
-            self.top-=1
-            return self.myList[self.top+1]
-
-    def peek(self):
-        if self.top==-1:
-            print("List is empty")
-            return
-        else:
-            return self.myList[self.top]
-
     def isEmpty(self):
         if self.top==-1: return True
         else: return False
@@ -37,6 +14,29 @@ class Stack:
     def isFull(self):
         if self.top==self.size-1: return True
         else: return False
+
+    def push(self,num):
+        if self.isFull():
+            print("Overflow")
+            return
+        else:
+            self.top+=1
+            self.myList[self.top]=num
+
+    def pop(self):
+        if self.isEmpty():
+            print("Underflow")
+            return
+        else:
+            self.top-=1
+            return self.myList[self.top+1]
+
+    def peek(self):
+        if self.isEmpty():
+            print("List is empty")
+            return
+        else:
+            return self.myList[self.top]
 
     def currSize(self):
         return self.top+1

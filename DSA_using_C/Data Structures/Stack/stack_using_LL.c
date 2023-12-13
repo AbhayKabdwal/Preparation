@@ -1,78 +1,132 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Node structure for the linked list
 struct Node {
     int data;
     struct Node* next;
 };
 
-// Function to create a new node with given data
-struct Node* createNode(int data) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-
-    newNode->data = data;
-    newNode->next = NULL;
-    return newNode;
-}
-
-// Function to insert a new node at the front of the linked list
-struct Node* insertFront(struct Node* head, int data) {
-    struct Node* newNode = createNode(data);
-    newNode->next = head;
-    return newNode;
-}
-
-// Function to display the linked list
-void displayList(struct Node* head) {
-    struct Node* current = head;
-    while (current != NULL) {
-        printf("%d -> ", current->data);
-        current = current->next;
-    }
-    printf("NULL\n");
-}
-
-struct Stack {
-    struct Node* top;
+// Linked List structure
+struct LinkedList {
+    struct Node* head;
+    int size;
 };
 
-// Function to initialize an empty stack
-void initializeStack(struct Stack* stack) {
-    stack->top = NULL;
+// Function to initialize an empty linked list
+void initializeLinkedList(struct LinkedList* list) {
+    list->head = NULL;
+    list->size = 0;
 }
 
-// Function to check if the stack is empty
-int isEmpty(struct Stack* stack) {
-    return stack->top == NULL;
-}
-
-// Function to push a new element onto the stack
-void push(struct Stack* stack, int data) {
-    stack->top = insertFront(stack->top, data);
-}
-
-// Function to pop an element from the stack
-int pop(struct Stack* stack) {
-    if (isEmpty(stack)) {
-        printf("Stack underflow\n");
+// Function to insert a new node at the head of the linked list
+void insertAtHead(struct LinkedList* list, int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (newNode == NULL) {
+        printf("Memory allocation error\n");
         exit(EXIT_FAILURE);
     }
 
-    int data = stack->top->data;
-    struct Node* temp = stack->top;
-    stack->top = stack->top->next;
+    newNode->data = data;
+    newNode->next = list->head;
+    list->head = newNode;
+    list->size++;
+}
+
+// Function to remove the node at the head of the linked list
+int removeAtHead(struct LinkedList* list) {
+    if (list->head == NULL) {
+        printf("Linked list is empty\n");
+        exit(EXIT_FAILURE);
+    }
+
+    struct Node* temp = list->head;
+    int data = temp->data;
+    list->head = temp->next;
     free(temp);
+    list->size--;
 
     return data;
 }
 
-int main(){
-    struct Stack *stack = NULL;
-    initializeStack(stack);
-    push(stack ,5);
-    push(stack ,10);
-    push(stack ,15);
-    printf("%d",pop(stack));
-    printf("%d",pop(stack));
+// Stack structure using a linked list
+struct Stack {
+    struct LinkedList list;
+    int top;
+    int size;
+};
+
+// Function to initialize an empty stack
+void initializeStack(struct Stack* stack, int size) {
+    initializeLinkedList(&(stack->list));
+    stack->top = -1;
+    stack->size = size;
+}
+
+// Function to push an element onto the stack
+void push(struct Stack* stack, int num) {
+    if (stack->top == stack->size - 1) {
+        printf("Stack is already full\n");
+        exit(EXIT_FAILURE);
+    }
+
+    stack->top++;
+    insertAtHead(&(stack->list), num);
+}
+
+// Function to pop an element from the stack
+int pop(struct Stack* stack) {
+    if (stack->top == -1) {
+        printf("Stack is already empty\n");
+        exit(EXIT_FAILURE);
+    }
+
+    stack->top--;
+    return removeAtHead(&(stack->list));
+}
+
+// Function to peek at the top element of the stack
+int peek(struct Stack* stack) {
+    if (stack->top == -1) {
+        printf("Stack is already empty\n");
+        exit(EXIT_FAILURE);
+    }
+
+    return stack->list.head->data;
+}
+
+// Function to check if the stack is empty
+int isEmpty(struct Stack* stack) {
+    return stack->top == -1;
+}
+
+// Function to check if the stack is full
+int isFull(struct Stack* stack) {
+    return stack->top == stack->size - 1;
+}
+
+// Function to print the elements of the stack
+void printStack(struct Stack* stack) {
+    struct Node* current = stack->list.head;
+    printf("[ ");
+    while (current != NULL) {
+        printf("%d ", current->data);
+        current = current->next;
+    }
+    printf("]\n");
+}
+
+// Driver code
+int main() {
+    struct Stack stack;
+    initializeStack(&stack, 10);
+
+    for (int i = 1; i <= 15; i++) {
+        push(&stack, i);
+    }
+
+    printStack(&stack);
+    printf("Popped element: %d\n", pop(&stack));
+
     return 0;
 }

@@ -4,8 +4,6 @@ class node:
         self.next = None
 
 class LinkedList:
-    size=0
-    
     def __init__(self):
         self.head = None
         self.size=0
@@ -31,7 +29,7 @@ class LinkedList:
             self.insertAtEnd(data)
         else:
             current_node = self.head
-            for i in range(1,idx-1):
+            for _ in range(1,idx-1):
                 current_node = current_node.next
             new_node.next = current_node.next
             current_node.next = new_node
