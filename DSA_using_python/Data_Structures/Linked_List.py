@@ -10,52 +10,54 @@ class LinkedList:
 
     #Insertion at the head 
     def insertAtHead(self, data):
-        new_node = node(data)
-        if self.head is None:
-            self.head = new_node
-            self.size+=1
+        newNode = node(data)
+        if self.head == None:
+            self.head = newNode
+            self.size += 1
+            # print(f"{data} inserted at front")
             return
-        else:
-            new_node.next = self.head
-            self.head = new_node
-            self.size+=1
+        newNode.next = self.head
+        self.head = newNode
+        self.size += 1
+        # print(f"{data} inserted at front")
             
     #Indexing starts from 0 to size-1
-    def insertAtIndex(self, idx, data):
-        new_node = node(data)
-        if idx==0:
-            self.insertAtHead(data)
-        elif idx==self.size-1:
-            self.insertAtEnd(data)
+    def insertAtIndex(self, index, data):
+        newNode = node(data)
+        if self.isEmpty() or (index == 0):
+            self.insert_at_front(data)
+        elif index == self.size-1:
+            self.insert_at_end(data)
         else:
-            current_node = self.head
-            for _ in range(1,idx-1):
-                current_node = current_node.next
-            new_node.next = current_node.next
-            current_node.next = new_node
-            self.size+=1
+            current = self.head
+            for _ in range(1,index-1):
+                current = current.next
+            newNode.next = current.next
+            current.next = newNode
+            self.size += 1
+            # print(f"{data} inserted at index {index}")
             
     #Insertion towards the end
     def insertAtEnd(self,data):
-        new_node = node(data)
-        if self.head is None:
-            self.head = new_node
-            self.size+=1
+        newNode = node(data)
+        if self.isEmpty():
+            self.head = newNode
+            self.size += 1
             return
-        current_node = self.head
-        while(current_node.next):
-            current_node = current_node.next
-        current_node.next = new_node
-        self.size+=1
+        current = self.head
+        while(current.next): current = current.next
+        current.next = newNode
+        self.size += 1
+        # print(f"{data} inserted at end")
 
     def removeAtHead(self):
-        if self.head is None:
+        if self.isEmpty():
+            # print("Empty linked list")
             return
-        else:
-            temp = self.head.data
-            self.head = self.head.next
-            self.size-=1
-            return temp
+        temp = self.head.data
+        self.head = self.head.next
+        self.size -= 1
+        return temp
             
 
     def removeAtEnd(self):
@@ -69,21 +71,27 @@ class LinkedList:
             current_node = self.head
             #Reaches to the second last node
             while(current_node.next.next): current_node = current_node.next
+            temp = current_node.next.data
             current_node.next = None
             self.size-=1
+            return temp
 
-    def removeAtIndex(self, idx):
-        if self.head is None:
-            return
-        elif idx==0: self.removeAtHead()
-        elif idx==self.size-1: self.removeAtEnd()
+    def removeAtIndex(self, index):
+        if self.isEmpty():
+            # print("Linked list in empty")
+            pass
+        if index == self.size-1:
+            self.remove_at_end()
+        elif index == 0:
+            self.remove_at_front()
         else:
-            current_node = self.head
-            for i in range(1,idx):
-                current_node = current_node.next
-            current_node.next = current_node.next.next
-            self.size-=1
-            
+            current = self.head
+            for _ in range(1,index-1):
+                current = current.next
+            temp = current.next.data
+            current.next = current.next.next
+            return temp
+
     def printList(self):
         current_node = self.head
         print("[",end=" ")
@@ -91,26 +99,6 @@ class LinkedList:
             print(current_node.data,end=" ")
             current_node = current_node.next
         print("]")
-
-    def getSize(self):
-        return self.size
-
-    def getElementAtHead(self):
-        if self.head is None:
-            return
-        else:
-            return self.head.data
-
-    def getElementAtEnd(self):
-        if self.head is None:
-            return
-        else:
-            current_node = self.head
-            while(current_node.next):
-                current_node = current_node.next
-            return current_node.data
-        
-
 
 #This is driver code
 '''

@@ -1,6 +1,6 @@
 class Queue:
     myList=list()
-    size=0,
+    size=0
     front=-1
     rear=-1
 
@@ -41,7 +41,7 @@ class Queue:
 
     def print(self):
         print("Dequeue <- ",end='')
-        for i in range(0,self.rear+1):
+        for i in range(0,self.currSize()):
             print(self.myList[i],"|",end=' ')
         print("<- Enqueue")
 
@@ -56,4 +56,5 @@ for i in range(1,8):
     print("The element removed is: {}".format(queue.dequeue()))
 print("Queue is empty: {}".format(queue.isEmpty()))
 print("Queue size: {}".format(queue.currSize()))
+queue.print()
                            
