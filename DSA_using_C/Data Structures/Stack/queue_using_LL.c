@@ -126,7 +126,10 @@ int main() {
         enqueue(queue, i + 1);
     }
     printQueue(queue);
-    dequeue(queue);
+    for(int i = 0; i < 10; i++){
+    printf("%d dequeued from queue\n",dequeue(queue));
+    }
+    
     printQueue(queue);
 
     // Free allocated memory

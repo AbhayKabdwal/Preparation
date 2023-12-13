@@ -67,18 +67,19 @@ void initializeStack(struct Stack* stack, int size) {
 void push(struct Stack* stack, int num) {
     if (stack->top == stack->size - 1) {
         printf("Stack is already full\n");
-        exit(EXIT_FAILURE);
+        return;
     }
 
     stack->top++;
     insertAtHead(&(stack->list), num);
+    printf("%d pushed into stack\n");
 }
 
 // Function to pop an element from the stack
 int pop(struct Stack* stack) {
     if (stack->top == -1) {
         printf("Stack is already empty\n");
-        exit(EXIT_FAILURE);
+        return;
     }
 
     stack->top--;
