@@ -1,5 +1,3 @@
-#Code to implement binary Search Tree
-
 import math
 import random
 
@@ -21,24 +19,23 @@ class node:
     def preOrder(self):
         #Root, Left, Right
         print(self.data,end=" ")
-        if self.left:
-            self.left.preOrder()
-        if self.right:
-            self.right.preOrder()
+        if self.left: self.left.preOrder()
+        if self.right: self.right.preOrder()
+        
 
     def inOrder(self):
         #Left, Root, Right
-        if self.left:
-            self.left.inOrder()
+        if self.left: self.left.inOrder()
         print(self.data,end=" ")
-        if self.right:
-            self.right.inOrder()
+        if self.right: self.right.inOrder()
+        
 
     def postOrder(self):
         #Left, Right, Root
         if self.left: self.left.postOrder()
         if self.right: self.right.postOrder()
         print(self.data,end=" ")
+        
 
     def levelOrder(self):
         queue = []
@@ -81,6 +78,17 @@ root = node(50)
 
 for i in range(0,10):
     root.insert(random.randint(10,90))
-    
 
+print(f"Preorder : ")
+root.preOrder()
+print("\n")
+print(f"Inorder : ")
+root.inOrder()
+print("\n")
+print(f"Postorder : ")
+root.postOrder()
+print("\n")
+print(f"Levelorder : ")
 root.levelOrder()
+
+root.printTree()

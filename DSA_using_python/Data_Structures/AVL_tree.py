@@ -1,6 +1,3 @@
-#Program to implement an AVL Tree
-import math
-
 class node:
     def __init__(self,data):
         self.data = data

@@ -2,26 +2,26 @@ import Linked_List as LL
 
 class Stack:
     top = -1
-    def __init__(self, size=10): #default size = 10
+    def __init__(self, size=30): #default size = 30
         self.llist = LL.LinkedList()
         self.size = size
 
     def push(self, num):
-        if self.top==self.size-1:
+        if self.isFull():
             print("Stack is already full")
         else:
             self.top+=1
             self.llist.insertAtHead(num)
 
     def pop(self):
-        if self.top==-1:
+        if self.isEmpty():
             print("Stack is already empty")
         else:
             self.top-=1
             return self.llist.removeAtHead()
 
     def peek(self):
-        if self.top==-1:
+        if self.isEmpty():
             print("Stack is already empty")
         else:
             return self.llist.getElementAtHead()
