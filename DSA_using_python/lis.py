@@ -1,3 +1,4 @@
+
 def get_lis(arr, n, ind, prev_index, dp):
     if ind == n:
         return 0
@@ -12,6 +13,12 @@ def get_lis(arr, n, ind, prev_index, dp):
         take = 1 + get_lis(arr, n, ind + 1, ind, dp)
 
     dp[ind][prev_index + 1] = max(not_take, take)
+
+    print(f"DP Matrix after processing index {ind} with prev_index {prev_index}:")
+    for row in dp:
+        print(" ".join(f"{x:3}" for x in row))
+    print()
+
     return dp[ind][prev_index + 1]
 
 
